@@ -1,0 +1,115 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/evidence-upload"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check your answers before sending your report
+      </h1>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Date of incident"
+            },
+            value: {
+              text: (data['incidentdate-day'] + "/" + data['incidentdate-month'] + "/" + data['incidentdate-year']) if data['incidentdate-day'] else "Not provided"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/incident-location",
+                  text: "Change",
+                  visuallyHiddenText: "date of incident"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Location postcode"
+            },
+            value: {
+              text: data['addressPostcode'] or "Not provided"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/incident-location",
+                  text: "Change",
+                  visuallyHiddenText: "Location postcode"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Type of incident"
+            },
+            value: {
+              text: data['incendenttype'] or "Not provided"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/incident-type",
+                  text: "Change",
+                  visuallyHiddenText: "type of incident"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Evidence uploaded"
+            },
+            value: {
+              text: data['fileUpload1'] or "No file uploaded"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/evidence-upload",
+                  text: "Change",
+                  visuallyHiddenText: "Question 3"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">
+        Submit the report
+      </h2>
+
+      <p>
+        By submitting this report you are confirming that, to the best of your knowledge, the details you are providing are correct.
+      </p>
+
+      <form action="/confirmation-submitted" method="post" novalidate>
+
+        {{ govukButton({
+          text: "Accept and submit"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

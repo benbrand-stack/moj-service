@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/incident-location"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/evidence-upload" method="post">
+
+        {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  name: "incendenttype",
+  fieldset: {
+    legend: {
+      text: "What type of incident occurred",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  items: [
+    {
+      value: "Unauthorised-access",
+      text: "Unauthorised access"
+    },
+    {
+      value: "lost-device",
+      text: "Lost or stolen device"
+    },
+    {
+      value: "unusual-activity",
+      text: "Unusual or suspicious activity"
+    },
+    {
+      value: "Other",
+      text: "Other - provide details below"
+    }
+  ]
+}) }}
+
+{{ govukTextarea({
+  name: "Incent Details",
+  id: "incent-detail",
+  label: {
+    text: "Provide any extra details",
+    classes: "govuk-label--l",
+    isPageHeading: true
+  },
+  hint: {
+    text: "Do not include personal or financial information, like your National Insurance number or credit card details"
+  }
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

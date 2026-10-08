@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/incident-type"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Provide supporting evidence
+      </h1>
+
+      <form class="form" action="/confirmation" method="post">
+
+   
+        <p>
+          Uploading evidence helps the security team investigate the incident faster. If you do not have evidence right now, you can skip this step and continue.
+        </p>
+
+        <p class='govuk-body'><strong>You can upload:</strong></p>
+          <ul class='govuk-list govuk-list--bullet'>
+            <li>screenshots of error messages, system logs, or misdirected emails</li>
+            <li>email exports (.msg or .eml files)</li>
+            <li>photos of physical security breaches (such as damaged hardware or unattended files)</li>
+          </ul>
+          <p class='govuk-body'><strong>File limits:</strong> PDF, PNG, JPG, TXT, CSV, or MSG up to 10MB. Do not upload password-protected or .zip files.</p>
+
+        {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{{ govukWarningText({
+  text: "Do not upload sensitive or personal data.",
+  iconFallbackText: "Warning"
+}) }}
+          {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+
+{{ govukFileUpload({
+  id: "file-upload-1",
+  name: "fileUpload1",
+  label: {
+    text: "Upload a file"
+  }
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

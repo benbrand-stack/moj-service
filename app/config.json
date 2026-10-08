@@ -1,5 +1,5 @@
 {
-  "serviceName": "Service name goes here",
+  "serviceName": "Report a data breach or compliance incident",
   "useServiceNavigation": true,
   "plugins": {
     "govuk-frontend": {
